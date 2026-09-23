@@ -1,0 +1,5 @@
+customer_id,name,email,city,age
+105,Rahul Verma,rahul@gmail.com,,35
+107,,invalid-email,Mumbai,22
+108,Sarah Lee,sarah@gmail.com, Bangalore ,not_available
+101,Another Person,another@gmail.com,Delhi,40

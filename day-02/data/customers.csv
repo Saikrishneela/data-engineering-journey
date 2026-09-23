@@ -1,0 +1,10 @@
+customer_id,name,email,city,age
+101, John Doe ,john@gmail.com, Hyderabad ,28
+102,Alice Smith,alice@gmail.com,Bangalore,31
+103,David Kumar,david@gmail.com, Hyderabad,25
+104, Priya Sharma,priya@gmail.com,Chennai,29
+105,Rahul Verma,rahul@gmail.com,,35
+106,John Doe,john@gmail.com,Hyderabad,28
+107,,invalid-email,Mumbai,22
+108,Sarah Lee,sarah@gmail.com, Bangalore ,not_available
+101,Another Person,another@gmail.com,Delhi,40
