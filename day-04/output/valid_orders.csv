@@ -1,0 +1,6 @@
+order_id,customer_id,product,quantity,amount
+1001,101,Laptop,1,55000
+1002,102,Mouse,2,1200
+1003,103,Keyboard,1,2500
+1005,104,Headphones,3,4500
+1010,101,Mouse,1,600

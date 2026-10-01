@@ -1,0 +1,6 @@
+order_id,customer_id,product,quantity,amount,reason
+1004,999,Monitor,1,15000,customer_not_found
+1006,105,Webcam,1,3000,customer_not_found
+1007,106,Keyboard,-1,2500,invalid_quantity
+1008,107,Mouse,2,invalid,invalid_amount
+1009,108,Laptop,1,65000,customer_not_found
