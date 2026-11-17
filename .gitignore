@@ -1,0 +1,6 @@
+.venv-spark/
+venv/
+__pycache__/
+*.pyc
+.env
+output/

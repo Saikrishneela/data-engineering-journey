@@ -1,76 +1,58 @@
+import csv
+import os
+
 import psycopg
 
-import csv
+INPUT_FILE = "../day-02/data/customers.csv"
 
-inputfile = "../day-02/data/customers.csv"
+password = os.getenv("POSTGRES_PASSWORD")
+if not password:
+    raise SystemExit("Set the POSTGRES_PASSWORD environment variable first.")
 
-conn = psycopg.connect(
+with psycopg.connect(
     host="localhost",
     port=5432,
     dbname="de_learning",
     user="postgres",
-    password="Saikrishna@30",
-)
+    password=password,
+) as conn:
+    print("🎉 connected to PostgreSQL successfully!")
 
-cur = conn.cursor()
+    with conn.cursor() as cur:
+        with open(INPUT_FILE, "r") as file:
+            reader = csv.DictReader(file)
 
+            for row in reader:
+                name = row["name"].strip()
+                email = row["email"].strip()
+                city = row["city"].strip()
 
-print("🎉 connect to PostgreSQL successfully!")
+                if name == "" or email == "" or city == "" or "@" not in email:
+                    continue
 
-with open(inputfile, "r") as file:
-    reader = csv.DictReader(file)
+                try:
+                    customer_id = int(row["customer_id"])
+                    age = int(row["age"])
+                except ValueError:
+                    print("Invalid data:", row)
+                    continue
 
-    for row in reader:
-        name = row["name"].strip()
-        email = row["email"].strip()
-        city = row["city"].strip()
+                cur.execute(
+                    """
+                    INSERT INTO customers (customer_id, name, email, city, age)
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (customer_id)
+                    DO UPDATE SET
+                        name  = EXCLUDED.name,
+                        email = EXCLUDED.email,
+                        city  = EXCLUDED.city,
+                        age   = EXCLUDED.age
+                    """,
+                    (customer_id, name, email, city, age),
+                )
 
-        if name == "" or email == "" or city == "" or "@" not in email:
-            continue
+        conn.commit()
 
-        try:
-            customer_id = int(row["customer_id"])
-            age = int(row["age"])
-        except ValueError:
-            print("Invalid data:", row)
-            continue
-        cur.execute(
-            """ INSERT INTO customers
-                VALUES (%s, %s, %s, %s, %s)
-                ON CONFLICT(customer_id)
-                DO UPDATE SET
-                name  = EXCLUDED.name,
-                email = EXCLUDED.email,
-                city  = EXCLUDED.city,
-                age   = EXCLUDED.age
-              """,
-            (customer_id, name, email, city, age),
-        )
-conn.commit()
-
-cur.execute(""" 
-    select *
-    from customers
-    order by customer_id
-    limit 10
-    """)
-
-
-rows = cur.fetchall()
-
-for row in rows:
-    print(row)
-
-# cur.execute(
-# """
-# INSERT INTO customers
-# VALUES (%s, %s, %s, %s, %s)""",
-# (200002, "Test Python", "python@test.com", "Hyderabad", 30),
-# )
-
-# conn.commit()
-
-
-# db_row = cur.fetchone()
-
-# print(db_row)
+        cur.execute("SELECT * FROM customers ORDER BY customer_id LIMIT 10")
+        for row in cur.fetchall():
+            print(row)
