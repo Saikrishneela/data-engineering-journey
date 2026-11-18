@@ -248,3 +248,14 @@ broadcast_shuffle_df.explain("formatted")
 print(spark.conf.get("spark.sql.autoBroadcastJoinThreshold"))
 
 print(spark.conf.get("spark.sql.adaptive.enabled"))
+
+
+print("===== FRESH DataFrames, built after the settings changed =====")
+
+fresh_plain = orders_large_df.join(products_df, on="product_id", how="inner")
+fresh_plain.explain()
+
+fresh_hint = orders_large_df.join(
+    f.broadcast(products_df), on="product_id", how="inner"
+)
+fresh_hint.explain()
