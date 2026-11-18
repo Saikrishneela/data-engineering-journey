@@ -6,12 +6,12 @@ I learn by building small pipelines, then combining them into real projects.
 
 ## What I've Built So Far
 
-| Folder | What it covers |
-|---|---|
+| Folder   | What it covers                                                                                                                                                                     |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | `day-02` | Customer ETL in Python: reads CSV, cleans fields (trim, lowercase emails, age check), validates (missing values, duplicate IDs, invalid emails) and writes clean and invalid files |
-| `day-03` | Python + PostgreSQL: connecting with Psycopg, parameterized queries, UPSERTs, transactions and commits |
-| `day-04` | Orders dataset used for the validation and loading pipeline |
-| `[folder name]` | Orders ETL pipeline: validates orders, rejects bad rows with a reason, UPSERTs clean rows into PostgreSQL and verifies the load |
+| `day-03` | Python + PostgreSQL: connecting with Psycopg, parameterized queries, UPSERTs, transactions and commits                                                                             |
+| `day-04` | Orders dataset used for the validation and loading pipeline                                                                                                                        |
+| `day-05` | Star-schema warehouse in SQL (fact and dimension tables) with 6 analytical queries                                                                                                 |     |
 
 ## Skills Practised
 
